@@ -66,7 +66,17 @@ body {
     background: var(--background-dark);
     color: var(--text-primary);
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 100vh;
+}
+
+/* Horizontal Layout Container */
+.horizontal-container {
+    display: flex;
+    width: 500vw; /* 5 sections × 100vw each */
+    height: 100vh;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* Container */
@@ -159,6 +169,7 @@ body {
 
 /* Hero Section */
 .hero {
+    width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -306,10 +317,10 @@ body {
 
 .scroll-indicator {
     position: absolute;
-    bottom: var(--spacing-2xl);
-    left: 50%;
-    transform: translateX(-50%);
-    animation: bounce 2s infinite;
+    right: var(--spacing-2xl);
+    top: 50%;
+    transform: translateY(-50%);
+    animation: bounceHorizontal 2s infinite;
 }
 
 .scroll-arrow {
@@ -317,18 +328,24 @@ body {
     height: 20px;
     border-right: 2px solid var(--text-secondary);
     border-bottom: 2px solid var(--text-secondary);
-    transform: rotate(45deg);
+    transform: rotate(-45deg);
 }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-    40% { transform: translateX(-50%) translateY(-10px); }
-    60% { transform: translateX(-50%) translateY(-5px); }
+@keyframes bounceHorizontal {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(-50%) translateX(0); }
+    40% { transform: translateY(-50%) translateX(-10px); }
+    60% { transform: translateY(-50%) translateX(-5px); }
 }
 
 /* Sections */
 section {
-    padding: var(--spacing-4xl) 0;
+    width: 100vw;
+    height: 100vh;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 .section-title {
@@ -721,6 +738,24 @@ section {
         flex-wrap: wrap;
         justify-content: center;
     }
+    
+    /* Adjust section indicators for mobile */
+    .section-indicators {
+        right: 10px;
+        gap: 8px;
+    }
+    
+    .indicator {
+        width: 6px;
+        height: 6px;
+    }
+    
+    /* Ensure horizontal scrolling works on mobile */
+    body {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
 }
 
 @media (max-width: 480px) {
@@ -768,13 +803,71 @@ section {
     }
 }
 
+/* Section Indicators */
+.section-indicators {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: var(--primary-color);
+    transform: scale(1.2);
+}
+
+.indicator:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+/* Active navigation link styling */
+.nav-link.active {
+    color: var(--text-primary);
+}
+
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* Horizontal scrollbar styling */
+::-webkit-scrollbar {
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-darker);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
 /* Print styles */
 @media print {
     .navbar,
     .hero-buttons,
     .scroll-indicator,
     .contact-form,
-    .footer {
+    .footer,
+    .section-indicators {
         display: none;
     }
     

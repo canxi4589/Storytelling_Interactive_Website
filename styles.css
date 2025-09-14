@@ -380,12 +380,23 @@ section {
     background: var(--surface-color);
 }
 
+.worlds-section .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .worlds-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-xl);
-    margin-top: var(--spacing-2xl);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
     max-width: 100%;
+    height: auto;
+    max-height: 70vh;
+    overflow-y: auto;
 }
 
 .world-card {
@@ -396,6 +407,8 @@ section {
     cursor: pointer;
     border: 1px solid var(--border-color);
     position: relative;
+    height: fit-content;
+    max-height: 400px;
 }
 
 .world-card:hover {
@@ -405,7 +418,7 @@ section {
 }
 
 .world-image {
-    height: 200px;
+    height: 150px;
     position: relative;
     background: var(--gradient-primary);
     display: flex;
@@ -442,19 +455,20 @@ section {
 }
 
 .world-content {
-    padding: var(--spacing-xl);
+    padding: var(--spacing-lg);
 }
 
 .world-description {
     color: var(--text-secondary);
-    margin-bottom: var(--spacing-lg);
-    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.5;
+    font-size: var(--font-size-sm);
 }
 
 .world-stats {
     display: flex;
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-lg);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
 }
 
 .stat {
@@ -727,7 +741,16 @@ section {
     
     .worlds-grid {
         grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
+        gap: var(--spacing-md);
+        max-height: 60vh;
+    }
+    
+    .world-card {
+        max-height: 350px;
+    }
+    
+    .world-image {
+        height: 120px;
     }
     
     .about-content {

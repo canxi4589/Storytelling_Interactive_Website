@@ -1,4 +1,4 @@
-// B.O.C.O. Worlds Experience - Illustrated Journey
+// B.O.C.O. Worlds Experience - Simple and Reliable
 class BocoWorldsExperience {
     constructor() {
         this.currentWorld = 1;
@@ -17,14 +17,16 @@ class BocoWorldsExperience {
             'Discovering Problems'
         ];
         
+        this.isTransitioning = false;
+        
         this.init();
     }
     
     init() {
         this.setupEventListeners();
         this.updateUI();
-        this.startAnimations();
         this.setupInteractiveElements();
+        this.startAmbientAnimations();
     }
     
     setupEventListeners() {
@@ -54,6 +56,10 @@ class BocoWorldsExperience {
         // Share functionality
         document.querySelector('.share-btn').addEventListener('click', () => this.shareJourney());
         
+        // Menu and info buttons
+        document.querySelector('.menu-btn').addEventListener('click', () => this.showMenu());
+        document.querySelector('.info-btn').addEventListener('click', () => this.showInfo());
+        
         // Mouse wheel navigation
         this.worldsContainer.addEventListener('wheel', this.throttle((e) => {
             e.preventDefault();
@@ -70,13 +76,13 @@ class BocoWorldsExperience {
         let startY = 0;
         let startTime = 0;
         
-        this.worldsContainer.addEventListener('touchstart', (e) => {
+        this.container.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
             startTime = Date.now();
         });
         
-        this.worldsContainer.addEventListener('touchend', (e) => {
+        this.container.addEventListener('touchend', (e) => {
             const endX = e.changedTouches[0].clientX;
             const endY = e.changedTouches[0].clientY;
             const endTime = Date.now();
@@ -106,7 +112,6 @@ class BocoWorldsExperience {
         const researchBoat = document.getElementById('researchBoat');
         if (researchBoat) {
             researchBoat.addEventListener('click', () => {
-                this.showMessage('🚤 Research begins with exploration!');
                 this.animateBoat();
             });
         }
@@ -115,7 +120,6 @@ class BocoWorldsExperience {
         const bocoMeet = document.getElementById('bocoMeet');
         if (bocoMeet) {
             bocoMeet.addEventListener('click', () => {
-                this.showMessage('👹 B.O.C.O. stirs! Conflicting opinions detected!');
                 this.animateBeast();
             });
         }
@@ -124,7 +128,6 @@ class BocoWorldsExperience {
         const uxResearcher = document.getElementById('uxResearcher');
         if (uxResearcher) {
             uxResearcher.addEventListener('click', () => {
-                this.showMessage('🔬 The UX Researcher is ready to help!');
                 this.animateCharacter();
             });
         }
@@ -132,27 +135,14 @@ class BocoWorldsExperience {
         // Interactive mines
         document.querySelectorAll('.sea-mine').forEach((mine, index) => {
             mine.addEventListener('click', () => {
-                this.showMessage(`⚠️ Problem detected: ${this.getRandomProblem()}`);
                 this.animateMine(mine);
             });
         });
         
         // Problem bubble interaction
         document.querySelector('.problem-bubble')?.addEventListener('click', () => {
-            this.showMessage('📋 Problem added to research list!');
+            this.animateProblemBubble();
         });
-    }
-    
-    getRandomProblem() {
-        const problems = [
-            'User confusion about navigation',
-            'Low conversion rates',
-            'Accessibility issues',
-            'Mobile responsiveness gaps',
-            'Slow load times',
-            'Poor search functionality'
-        ];
-        return problems[Math.floor(Math.random() * problems.length)];
     }
     
     animateBoat() {
@@ -190,8 +180,17 @@ class BocoWorldsExperience {
         }, 400);
     }
     
+    animateProblemBubble() {
+        const bubble = document.querySelector('.problem-bubble');
+        bubble.style.transform = 'scale(1.05)';
+        setTimeout(() => {
+            bubble.style.transform = 'scale(1)';
+        }, 200);
+    }
+    
     goToWorld(worldNumber) {
-        if (worldNumber >= 1 && worldNumber <= this.totalWorlds && worldNumber !== this.currentWorld) {
+        if (worldNumber >= 1 && worldNumber <= this.totalWorlds && worldNumber !== this.currentWorld && !this.isTransitioning) {
+            this.isTransitioning = true;
             this.showTransition(worldNumber);
             
             setTimeout(() => {
@@ -201,26 +200,33 @@ class BocoWorldsExperience {
                 
                 setTimeout(() => {
                     this.hideTransition();
+                    this.isTransitioning = false;
                 }, 500);
             }, 800);
-        }
-    }
-    
-    nextWorld() {
-        if (this.currentWorld < this.totalWorlds) {
-            this.goToWorld(this.currentWorld + 1);
-        }
-    }
-    
-    previousWorld() {
-        if (this.currentWorld > 1) {
-            this.goToWorld(this.currentWorld - 1);
         }
     }
     
     updateWorldPosition() {
         const translateX = -(this.currentWorld - 1) * 100;
         this.worldsContainer.style.transform = `translateX(${translateX}vw)`;
+    }
+    
+    scrollToWorld(worldNumber) {
+        // This method is kept for compatibility but uses updateWorldPosition
+        this.currentWorld = worldNumber;
+        this.updateWorldPosition();
+    }
+    
+    nextWorld() {
+        if (this.currentWorld < this.totalWorlds && !this.isTransitioning) {
+            this.goToWorld(this.currentWorld + 1);
+        }
+    }
+    
+    previousWorld() {
+        if (this.currentWorld > 1 && !this.isTransitioning) {
+            this.goToWorld(this.currentWorld - 1);
+        }
     }
     
     updateUI() {
@@ -259,16 +265,14 @@ class BocoWorldsExperience {
         }, 300);
     }
     
-    startAnimations() {
+    startAmbientAnimations() {
         // Animate trees swaying
         this.animateTrees();
         
-        // Animate water flow (already handled in CSS)
-        
-        // Animate floating particles
+        // Add floating particles
         this.animateParticles();
         
-        // Add atmospheric sounds (visual feedback)
+        // Add atmospheric effects
         this.addAtmosphericEffects();
     }
     
@@ -279,16 +283,19 @@ class BocoWorldsExperience {
             tree.style.animation = `sway 3s ease-in-out infinite ${delay}ms`;
         });
         
-        // Add sway animation to CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes sway {
-                0%, 100% { transform: rotate(0deg); }
-                25% { transform: rotate(2deg); }
-                75% { transform: rotate(-2deg); }
-            }
-        `;
-        document.head.appendChild(style);
+        // Add sway animation to CSS if not exists
+        if (!document.querySelector('#swayAnimation')) {
+            const style = document.createElement('style');
+            style.id = 'swayAnimation';
+            style.textContent = `
+                @keyframes sway {
+                    0%, 100% { transform: rotate(0deg); }
+                    25% { transform: rotate(2deg); }
+                    75% { transform: rotate(-2deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
     }
     
     animateParticles() {
@@ -305,7 +312,10 @@ class BocoWorldsExperience {
         particle.style.bottom = '20%';
         particle.style.animation = 'floatUp 4s linear forwards';
         
-        document.getElementById(`world${this.currentWorld}`).appendChild(particle);
+        const currentWorldElement = document.getElementById(`world${this.currentWorld}`);
+        if (currentWorldElement) {
+            currentWorldElement.appendChild(particle);
+        }
         
         // Remove particle after animation
         setTimeout(() => {
@@ -337,7 +347,7 @@ class BocoWorldsExperience {
     }
     
     addAtmosphericEffects() {
-        // Add subtle parallax effect to mountains
+        // Add subtle parallax effect to mountains on mouse move
         window.addEventListener('mousemove', this.throttle((e) => {
             const mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
             const mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
@@ -359,7 +369,7 @@ class BocoWorldsExperience {
         if (navigator.share) {
             navigator.share(shareData)
                 .then(() => {
-                    this.showMessage('🎉 Journey shared successfully!');
+                    // Silent success - no popup
                 })
                 .catch((error) => {
                     console.log('Error sharing:', error);
@@ -373,39 +383,29 @@ class BocoWorldsExperience {
     fallbackShare() {
         navigator.clipboard.writeText(window.location.href)
             .then(() => {
-                this.showMessage('📋 Link copied to clipboard!');
+                // Silent success - no popup
             })
             .catch(() => {
-                this.showMessage('❌ Unable to share. Try again later.');
+                // Silent failure - no popup
             });
     }
     
-    showMessage(message) {
-        // Create floating message
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-white/90 backdrop-blur-md text-gray-800 px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-300';
-        messageDiv.textContent = message;
-        messageDiv.style.transform = 'translateX(-50%) translateY(-20px)';
-        messageDiv.style.opacity = '0';
-        
-        document.body.appendChild(messageDiv);
-        
-        // Animate in
+    showMenu() {
+        // Simple menu toggle without popup
+        const menu = document.querySelector('.menu-btn');
+        menu.style.transform = 'scale(0.9)';
         setTimeout(() => {
-            messageDiv.style.transform = 'translateX(-50%) translateY(0)';
-            messageDiv.style.opacity = '1';
-        }, 100);
-        
-        // Remove after delay
+            menu.style.transform = 'scale(1)';
+        }, 150);
+    }
+    
+    showInfo() {
+        // Simple info toggle without popup
+        const info = document.querySelector('.info-btn');
+        info.style.transform = 'scale(0.9)';
         setTimeout(() => {
-            messageDiv.style.transform = 'translateX(-50%) translateY(-20px)';
-            messageDiv.style.opacity = '0';
-            setTimeout(() => {
-                if (messageDiv.parentNode) {
-                    messageDiv.parentNode.removeChild(messageDiv);
-                }
-            }, 300);
-        }, 3000);
+            info.style.transform = 'scale(1)';
+        }, 150);
     }
     
     throttle(func, limit) {
@@ -457,6 +457,9 @@ function showCompatibilityMessage(width, height) {
     document.body.appendChild(overlay);
 }
 
+// Global variable to store the experience instance
+let bocoExperience = null;
+
 // Initialize the experience
 document.addEventListener('DOMContentLoaded', () => {
     if (checkCompatibility()) {
@@ -468,7 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.opacity = '1';
             
             // Initialize the experience
-            new BocoWorldsExperience();
+            bocoExperience = new BocoWorldsExperience();
         }, 500);
     }
 });

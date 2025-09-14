@@ -66,7 +66,17 @@ body {
     background: var(--background-dark);
     color: var(--text-primary);
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 100vh;
+}
+
+/* Horizontal Layout Container */
+.horizontal-container {
+    display: flex;
+    width: 600vw; /* 6 sections × 100vw each (increased for better content fit) */
+    height: 100vh;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* Container */
@@ -74,6 +84,11 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--spacing-lg);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* Navigation */
@@ -159,6 +174,7 @@ body {
 
 /* Hero Section */
 .hero {
+    width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -306,10 +322,10 @@ body {
 
 .scroll-indicator {
     position: absolute;
-    bottom: var(--spacing-2xl);
-    left: 50%;
-    transform: translateX(-50%);
-    animation: bounce 2s infinite;
+    right: var(--spacing-2xl);
+    top: 50%;
+    transform: translateY(-50%);
+    animation: bounceHorizontal 2s infinite;
 }
 
 .scroll-arrow {
@@ -317,18 +333,27 @@ body {
     height: 20px;
     border-right: 2px solid var(--text-secondary);
     border-bottom: 2px solid var(--text-secondary);
-    transform: rotate(45deg);
+    transform: rotate(-45deg);
 }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-    40% { transform: translateX(-50%) translateY(-10px); }
-    60% { transform: translateX(-50%) translateY(-5px); }
+@keyframes bounceHorizontal {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(-50%) translateX(0); }
+    40% { transform: translateY(-50%) translateX(-10px); }
+    60% { transform: translateY(-50%) translateX(-5px); }
 }
 
 /* Sections */
 section {
-    padding: var(--spacing-4xl) 0;
+    width: 100vw;
+    height: 100vh;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 80px 0 20px 0; /* Add padding for navbar and bottom spacing */
 }
 
 .section-title {
@@ -355,11 +380,23 @@ section {
     background: var(--surface-color);
 }
 
+.worlds-section .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .worlds-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-2xl);
-    margin-top: var(--spacing-3xl);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+    max-width: 100%;
+    height: auto;
+    max-height: 70vh;
+    overflow-y: auto;
 }
 
 .world-card {
@@ -370,6 +407,8 @@ section {
     cursor: pointer;
     border: 1px solid var(--border-color);
     position: relative;
+    height: fit-content;
+    max-height: 400px;
 }
 
 .world-card:hover {
@@ -379,7 +418,7 @@ section {
 }
 
 .world-image {
-    height: 200px;
+    height: 150px;
     position: relative;
     background: var(--gradient-primary);
     display: flex;
@@ -416,19 +455,20 @@ section {
 }
 
 .world-content {
-    padding: var(--spacing-xl);
+    padding: var(--spacing-lg);
 }
 
 .world-description {
     color: var(--text-secondary);
-    margin-bottom: var(--spacing-lg);
-    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.5;
+    font-size: var(--font-size-sm);
 }
 
 .world-stats {
     display: flex;
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-lg);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
 }
 
 .stat {
@@ -460,8 +500,9 @@ section {
 .about-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-4xl);
+    gap: var(--spacing-2xl);
     align-items: center;
+    max-width: 100%;
 }
 
 .about-description {
@@ -538,8 +579,9 @@ section {
 .contact-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-4xl);
-    margin-top: var(--spacing-3xl);
+    gap: var(--spacing-2xl);
+    margin-top: var(--spacing-2xl);
+    max-width: 100%;
 }
 
 .contact-info {
@@ -699,16 +741,36 @@ section {
     
     .worlds-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+        max-height: 60vh;
+    }
+    
+    .world-card {
+        max-height: 350px;
+    }
+    
+    .world-image {
+        height: 120px;
     }
     
     .about-content {
         grid-template-columns: 1fr;
-        gap: var(--spacing-2xl);
+        gap: var(--spacing-xl);
     }
     
     .contact-content {
         grid-template-columns: 1fr;
-        gap: var(--spacing-2xl);
+        gap: var(--spacing-xl);
+    }
+    
+    /* Adjust section padding for mobile */
+    section {
+        padding: 70px 0 10px 0;
+    }
+    
+    /* Make containers more compact on mobile */
+    .container {
+        padding: 0 var(--spacing-md);
     }
     
     .footer-content {
@@ -720,6 +782,24 @@ section {
     .footer-links {
         flex-wrap: wrap;
         justify-content: center;
+    }
+    
+    /* Adjust section indicators for mobile */
+    .section-indicators {
+        right: 10px;
+        gap: 8px;
+    }
+    
+    .indicator {
+        width: 6px;
+        height: 6px;
+    }
+    
+    /* Ensure horizontal scrolling works on mobile */
+    body {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
     }
 }
 
@@ -768,13 +848,106 @@ section {
     }
 }
 
+/* Section Indicators */
+.section-indicators {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: var(--primary-color);
+    transform: scale(1.2);
+}
+
+.indicator:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+/* Active navigation link styling */
+.nav-link.active {
+    color: var(--text-primary);
+}
+
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* Horizontal scrollbar styling */
+::-webkit-scrollbar {
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-darker);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* Vertical scrollbar styling for sections */
+section::-webkit-scrollbar {
+    width: 6px;
+}
+
+section::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+section::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+section::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Ensure content doesn't overflow */
+.world-card,
+.feature,
+.contact-item {
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+/* Better spacing for section content */
+.section-title {
+    margin-bottom: var(--spacing-md);
+}
+
+.section-description {
+    margin-bottom: var(--spacing-2xl);
+}
+
 /* Print styles */
 @media print {
     .navbar,
     .hero-buttons,
     .scroll-indicator,
     .contact-form,
-    .footer {
+    .footer,
+    .section-indicators {
         display: none;
     }
     

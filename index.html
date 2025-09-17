@@ -56,14 +56,14 @@
             </h1>
             <p class="hero-description">
                 Embark on an extraordinary journey through immersive digital realms. 
-                Each world holds unique mysteries waiting to be discovered.
+                Each <span class="highlighted-text modal-trigger" data-modal="uxResearcherModal">world</span> holds unique mysteries waiting to be discovered.
             </p>
             <div class="hero-buttons">
-                <button class="btn btn-primary" aria-describedby="cta-description">
+                <button class="btn btn-primary modal-trigger" data-modal="uxResearcherModal" aria-describedby="cta-description">
                     Start Adventure
                     <span class="btn-arrow">→</span>
                 </button>
-                <button class="btn btn-secondary" aria-describedby="learn-more-description">
+                <button class="btn btn-secondary modal-trigger" data-modal="uxResearcherModal" aria-describedby="learn-more-description">
                     Learn More
                 </button>
             </div>
@@ -262,6 +262,66 @@
     </footer>
     </div>
 
+    <!-- Modal System -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+            
+            <!-- UX Researcher Modal -->
+            <div class="modal-content" id="uxResearcherModal">
+                <div class="modal-header">
+                    <h2 class="modal-title">UX RESEARCHER</h2>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-description">
+                        A UX Researcher conducts applied research to solve design challenges, systematically gathering data through analysis and testing. Rely on the UX Researcher to uncover insights and develop recommendations about the way forward.
+                    </p>
+                    
+                    <div class="modal-section">
+                        <h3 class="section-title">OUR RESEARCH PROJECTS</h3>
+                        <div class="projects-grid">
+                            <div class="project-card">
+                                <div class="project-image">
+                                    <div class="project-placeholder banking-project">
+                                        <div class="project-content">
+                                            <h4>NATIONAL COMMERCIAL BANK</h4>
+                                            <p>Bank on your schedule</p>
+                                            <button class="project-btn">OPEN AN ACCOUNT</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-card">
+                                <div class="project-image">
+                                    <div class="project-placeholder thriftbooks-project">
+                                        <div class="thriftbooks-logo">
+                                            <div class="books-icon">📚</div>
+                                            <span>thriftbooks</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-card">
+                                <div class="project-image">
+                                    <div class="project-placeholder lifecycle-project">
+                                        <div class="lifecycle-content">
+                                            <h4>MyResearch Project Lifecycle</h4>
+                                            <div class="lifecycle-steps">
+                                                <span class="step">PLAN/PROPOSE</span>
+                                                <span class="step">CLOSEOUT</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="horizontal-scroll.js"></script>
+    <script src="modal.js"></script>
 </body>
 </html>

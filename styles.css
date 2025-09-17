@@ -940,6 +940,324 @@ section::-webkit-scrollbar-thumb:hover {
     margin-bottom: var(--spacing-2xl);
 }
 
+/* Modal System Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 10000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-container {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    height: 80vh;
+    margin: auto;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    transform: scale(0.8) translateY(50px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-container {
+    transform: scale(1) translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    z-index: 10001;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    background: rgba(0, 0, 0, 0.2);
+    color: #333;
+}
+
+.modal-content {
+    padding: 40px;
+    height: 100%;
+    overflow-y: auto;
+    color: #333;
+}
+
+.modal-header {
+    margin-bottom: 30px;
+}
+
+.modal-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.modal-body {
+    line-height: 1.6;
+}
+
+.modal-description {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 40px;
+    line-height: 1.7;
+}
+
+.modal-section {
+    margin-top: 40px;
+}
+
+.modal-section .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: left;
+    background: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    background-clip: unset;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.project-card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.project-image {
+    width: 100%;
+    height: 200px;
+    position: relative;
+}
+
+.project-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.banking-project {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #333;
+}
+
+.banking-project .project-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.banking-project h4 {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.banking-project p {
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.project-btn {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.project-btn:hover {
+    background: #555;
+}
+
+.thriftbooks-project {
+    background: linear-gradient(135deg, #20b2aa 0%, #17a2b8 100%);
+    position: relative;
+}
+
+.thriftbooks-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.books-icon {
+    font-size: 2rem;
+}
+
+.thriftbooks-logo span {
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: lowercase;
+}
+
+.lifecycle-project {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    padding: 20px;
+}
+
+.lifecycle-content {
+    text-align: center;
+}
+
+.lifecycle-content h4 {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.lifecycle-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.step {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+/* Highlighted text styles */
+.highlighted-text {
+    color: var(--primary-color);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.highlighted-text:hover {
+    text-decoration-color: var(--primary-color);
+    background: rgba(99, 102, 241, 0.1);
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+/* Modal trigger button styles */
+.modal-trigger {
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-trigger::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.modal-trigger:hover::before {
+    left: 100%;
+}
+
+/* Responsive modal styles */
+@media (max-width: 768px) {
+    .modal-container {
+        width: 95%;
+        height: 90vh;
+        margin: 20px auto;
+    }
+    
+    .modal-content {
+        padding: 30px 20px;
+    }
+    
+    .modal-title {
+        font-size: 1.5rem;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .project-image {
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        margin: 0;
+    }
+    
+    .modal-content {
+        padding: 20px 15px;
+    }
+    
+    .modal-close {
+        top: 15px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+    }
+}
+
 /* Print styles */
 @media print {
     .navbar,
@@ -947,7 +1265,8 @@ section::-webkit-scrollbar-thumb:hover {
     .scroll-indicator,
     .contact-form,
     .footer,
-    .section-indicators {
+    .section-indicators,
+    .modal-overlay {
         display: none;
     }
     

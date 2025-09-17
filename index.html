@@ -90,38 +90,59 @@
                 <div class="mountains"></div>
                 <div class="rice-fields"></div>
                 <div class="factory-smoke"></div>
-        </div>
+                <div class="rain-drops"></div>
+            </div>
             <div class="scene-content">
-                <h2 class="scene-title">Việt Nam những năm 1900</h2>
+                <h2 class="scene-title fade-in-title">Việt Nam những năm 1900</h2>
                 <div class="character-groups">
-                    <div class="character-group farmers" tabindex="0" role="button" aria-label="Hover to see farmers' hardships">
+                    <div class="character-group farmers" tabindex="0" role="button" aria-label="Hover to see farmers' hardships" data-sound="wind">
                         <div class="group-icon">👨‍🌾</div>
-                        <div class="hover-card">
-                            <p>"Ruộng đồng khô cạn, không còn để ăn..."</p>
+                        <div class="group-emotion sad"></div>
+                        <div class="hover-card enhanced-card">
+                            <div class="card-content">
+                                <h4>Nông dân</h4>
+                                <p>"Ruộng đồng khô cạn, không còn để ăn..."</p>
+                                <div class="card-emotion">😢</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="character-group workers" tabindex="0" role="button" aria-label="Hover to see workers' struggles">
+                    <div class="character-group workers" tabindex="0" role="button" aria-label="Hover to see workers' struggles" data-sound="factory">
                         <div class="group-icon">👷‍♂️</div>
-                        <div class="hover-card">
-                            <p>"Làm mười mấy tiếng mà không đủ sống..."</p>
-                </div>
+                        <div class="group-emotion tired"></div>
+                        <div class="hover-card enhanced-card">
+                            <div class="card-content">
+                                <h4>Công nhân</h4>
+                                <p>"Làm mười mấy tiếng mà không đủ sống..."</p>
+                                <div class="card-emotion">😰</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="character-group children" tabindex="0" role="button" aria-label="Hover to see children's dreams">
+                    <div class="character-group children" tabindex="0" role="button" aria-label="Hover to see children's dreams" data-sound="children">
                         <div class="group-icon">👶</div>
-                        <div class="hover-card">
-                            <p>"Con muốn đi học..."</p>
+                        <div class="group-emotion hopeful"></div>
+                        <div class="hover-card enhanced-card">
+                            <div class="card-content">
+                                <h4>Trẻ em</h4>
+                                <p>"Con muốn đi học..."</p>
+                                <div class="card-emotion">🥺</div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="scene-description">
                     <p>Đất nước Việt Nam những năm đầu thế kỷ 20 chìm trong đói nghèo và nô lệ thực dân</p>
                 </div>
-                <div class="character ho-chi-minh young" id="youngHoChiMinh">
+                <div class="character ho-chi-minh young walking" id="youngHoChiMinh">
                     <div class="character-silhouette"></div>
+                    <div class="walking-path"></div>
                 </div>
             </div>
-            <audio class="scene-audio" loop>
-                <!-- Wind and crying sounds would be added here -->
+            <!-- Sound effects for atmosphere -->
+            <audio class="scene-audio wind-sound" loop preload="auto">
+                <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+LyvmIaCEOYze/GdiMFFnfh6r5xLwUVYL3j575zLgUSa8PrynpNChpMm9/tyGoifECYzU" type="audio/wav">
+            </audio>
+            <audio class="scene-audio children-sound" loop preload="auto">
+                <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+LyvmIaCEOYze/GdiMFFnfh6r5xLwUVYL3j575zLgUSa8PrynpNChpMm9/tyGoifECYzU" type="audio/wav">
             </audio>
         </section>
 
@@ -129,26 +150,64 @@
         <section id="scene3" class="story-scene scene-3">
             <div class="scene-background dark-hut">
                 <div class="hut-interior"></div>
-                <div class="fireflies"></div>
-                <div class="candle-light"></div>
+                <div class="fireflies multiple"></div>
+                <div class="candle-light animated"></div>
+                <div class="hut-walls"></div>
+                <div class="wooden-table"></div>
             </div>
             <div class="scene-content">
-                <div class="desk-area">
-                    <div class="young-man-thinking"></div>
-                    <div class="diary-book" tabindex="0" role="button" aria-label="Click to read the diary">
-                        📖
-                        <div class="diary-tooltip">Nhấp để đọc nhật ký</div>
+                <div class="contemplation-scene">
+                    <div class="desk-area enhanced">
+                        <div class="young-man-thinking breathing">
+                            <div class="thought-bubble" id="thoughtBubble">
+                                <span>💭</span>
+                            </div>
+                        </div>
+                        <div class="diary-book glowing" tabindex="0" role="button" aria-label="Click to read the diary">
+                            📖
+                            <div class="diary-tooltip enhanced">
+                                <span class="tooltip-text">Nhấp để đọc nhật ký</span>
+                                <div class="tooltip-arrow"></div>
+                            </div>
+                            <div class="book-glow-effect"></div>
+                        </div>
+                        <div class="ink-well">🖋️</div>
+                        <div class="scattered-papers">
+                            <div class="paper paper-1">📄</div>
+                            <div class="paper paper-2">📄</div>
+                        </div>
                     </div>
                 </div>
-                <div class="diary-popup" id="diaryPopup">
-                    <div class="diary-content">
-                        <div class="handwritten-text">
-                            "Tôi phải ra đi"
+                
+                <div class="diary-popup enhanced" id="diaryPopup">
+                    <div class="popup-backdrop"></div>
+                    <div class="diary-content enhanced">
+                        <div class="diary-page">
+                            <div class="page-header">
+                                <div class="date">5 tháng 6, 1911</div>
+                                <div class="page-decoration">✦</div>
+                            </div>
+                            <div class="handwritten-text animated">
+                                "Tôi phải ra đi"
+                            </div>
+                            <div class="handwritten-subtext">
+                                <p>Để tìm con đường cứu nước...</p>
+                                <p>Để học hỏi những điều mới...</p>
+                                <p>Để mang ánh sáng về cho dân tộc.</p>
+                            </div>
+                            <div class="signature">- Nguyễn Tất Thành -</div>
                         </div>
-                        <button class="close-diary" aria-label="Close diary">×</button>
+                        <button class="close-diary enhanced" aria-label="Close diary">
+                            <span>✕</span>
+                        </button>
                     </div>
                 </div>
             </div>
+            
+            <!-- Ambient sound for scene 3 -->
+            <audio class="scene-audio night-ambience" loop preload="auto">
+                <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+LyvmIaCEOYze/GdiMFFnfh6r5xLwUVYL3j575zLgUSa8PrynpNChpMm9/tyGoifECYzU" type="audio/wav">
+            </audio>
         </section>
 
         <!-- Scene 4: Nha Rong Wharf departure -->

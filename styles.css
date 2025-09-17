@@ -1044,12 +1044,39 @@ section::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.9) 100%);
     border-radius: 50% 50% 0 0 / 60% 60% 40% 40%;
     position: relative;
-    animation: gentle-sway 4s ease-in-out infinite;
+    animation: gentle-breathing 3s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
-@keyframes gentle-sway {
-    0%, 100% { transform: rotate(-2deg); }
-    50% { transform: rotate(2deg); }
+/* Enhanced breathing animation */
+@keyframes gentle-breathing {
+    0%, 100% { 
+        transform: scale(1) rotate(-1deg); 
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    50% { 
+        transform: scale(1.02) rotate(1deg); 
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+    }
+}
+
+/* Add subtle glow effect */
+.character-silhouette::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+    border-radius: inherit;
+    z-index: -1;
+    animation: character-glow 4s ease-in-out infinite;
+}
+
+@keyframes character-glow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
 }
 
 .story-title {
@@ -1080,6 +1107,46 @@ section::-webkit-scrollbar-thumb:hover {
 /* Scene 2: Vietnam 1900s */
 .vietnam-1900s {
     background: linear-gradient(135deg, #8B7355 0%, #A0956B 30%, #6B5B73 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Rain effect */
+.rain-drops {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 0%, rgba(173, 216, 230, 0.1) 100%);
+    opacity: 0.3;
+}
+
+.rain-drops::before,
+.rain-drops::after {
+    content: '';
+    position: absolute;
+    top: -100px;
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, rgba(173, 216, 230, 0.6), transparent);
+    animation: rain-fall 1s linear infinite;
+}
+
+.rain-drops::before {
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.rain-drops::after {
+    left: 80%;
+    animation-delay: 0.5s;
+}
+
+@keyframes rain-fall {
+    to {
+        transform: translateY(100vh);
+    }
 }
 
 .sky-gradient {
@@ -1155,39 +1222,153 @@ section::-webkit-scrollbar-thumb:hover {
 .character-group {
     position: relative;
     cursor: pointer;
-    transition: transform var(--transition-normal);
+    transition: all var(--transition-normal);
+    padding: var(--spacing-md);
+    border-radius: 15px;
 }
 
 .character-group:hover {
-    transform: translateY(-10px);
+    transform: translateY(-15px) scale(1.05);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
 }
 
 .group-icon {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: var(--spacing-sm);
     filter: sepia(100%) saturate(0.5) brightness(0.8);
+    transition: all var(--transition-normal);
+    position: relative;
+    z-index: 2;
 }
 
-.hover-card {
+.character-group:hover .group-icon {
+    filter: none;
+    transform: scale(1.1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Emotion indicators */
+.group-emotion {
     position: absolute;
-    bottom: 120%;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    animation: emotion-pulse 2s ease-in-out infinite;
+}
+
+.group-emotion.sad {
+    background: radial-gradient(circle, rgba(135, 206, 235, 0.8), transparent);
+}
+
+.group-emotion.tired {
+    background: radial-gradient(circle, rgba(255, 140, 0, 0.8), transparent);
+}
+
+.group-emotion.hopeful {
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.8), transparent);
+}
+
+@keyframes emotion-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.3); opacity: 1; }
+}
+
+/* Enhanced hover cards */
+.enhanced-card {
+    position: absolute;
+    bottom: 130%;
     left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.9);
+    transform: translateX(-50%) translateY(10px);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(30, 30, 30, 0.95) 100%);
     color: var(--text-primary);
-    padding: var(--spacing-md);
-    border-radius: 10px;
-    white-space: nowrap;
+    padding: 0;
+    border-radius: 15px;
     opacity: 0;
     visibility: hidden;
-    transition: all var(--transition-fast);
-    box-shadow: var(--shadow-lg);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    min-width: 200px;
 }
 
-.character-group:hover .hover-card,
-.character-group:focus .hover-card {
+.card-content {
+    padding: var(--spacing-lg);
+    text-align: center;
+}
+
+.card-content h4 {
+    color: #FFD700;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.card-content p {
+    font-size: var(--font-size-sm);
+    line-height: 1.4;
+    margin-bottom: var(--spacing-sm);
+    font-style: italic;
+}
+
+.card-emotion {
+    font-size: 1.5rem;
+    opacity: 0.8;
+}
+
+.character-group:hover .enhanced-card,
+.character-group:focus .enhanced-card {
     opacity: 1;
     visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Walking character animation */
+.character.walking .character-silhouette {
+    animation: walking-movement 2s ease-in-out infinite;
+}
+
+@keyframes walking-movement {
+    0%, 100% { transform: translateX(0) scale(1); }
+    25% { transform: translateX(-3px) scale(0.98); }
+    50% { transform: translateX(0) scale(1.02); }
+    75% { transform: translateX(3px) scale(0.98); }
+}
+
+.walking-path {
+    position: absolute;
+    bottom: -10px;
+    left: -20px;
+    right: -20px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+    border-radius: 2px;
+    animation: path-glow 3s ease-in-out infinite;
+}
+
+@keyframes path-glow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+/* Fade in title animation */
+.fade-in-title {
+    animation: fade-in-up 1s ease-out 0.5s both;
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .scene-description {
@@ -1201,6 +1382,30 @@ section::-webkit-scrollbar-thumb:hover {
 /* Scene 3: Dark Hut */
 .dark-hut {
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    position: relative;
+}
+
+/* Enhanced hut environment */
+.hut-walls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70%;
+    background: linear-gradient(to top, rgba(101, 67, 33, 0.8) 0%, transparent 100%);
+    border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+}
+
+.wooden-table {
+    position: absolute;
+    bottom: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 80px;
+    background: linear-gradient(45deg, #8B4513 0%, #A0522D 100%);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 .hut-interior {
@@ -1211,38 +1416,54 @@ section::-webkit-scrollbar-thumb:hover {
     background: radial-gradient(ellipse at bottom, rgba(101, 67, 33, 0.8) 0%, transparent 70%);
 }
 
-.fireflies {
+/* Enhanced fireflies */
+.fireflies.multiple {
     position: absolute;
     width: 100%;
     height: 100%;
 }
 
-.fireflies::before,
-.fireflies::after {
+.fireflies.multiple::before,
+.fireflies.multiple::after {
     content: '';
     position: absolute;
-    width: 4px;
-    height: 4px;
-    background: #ffeb3b;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle, #ffeb3b 0%, transparent 70%);
     border-radius: 50%;
-    animation: firefly 4s ease-in-out infinite;
+    animation: firefly-dance 6s ease-in-out infinite;
+    box-shadow: 0 0 10px #ffeb3b;
 }
 
-.fireflies::before {
+.fireflies.multiple::before {
     top: 30%;
     left: 20%;
     animation-delay: 0s;
 }
 
-.fireflies::after {
+.fireflies.multiple::after {
     top: 60%;
     right: 30%;
-    animation-delay: 2s;
+    animation-delay: 3s;
 }
 
-@keyframes firefly {
-    0%, 100% { opacity: 0.3; transform: translateY(0); }
-    50% { opacity: 1; transform: translateY(-20px); }
+@keyframes firefly-dance {
+    0%, 100% { 
+        opacity: 0.3; 
+        transform: translateY(0) translateX(0) scale(1); 
+    }
+    25% { 
+        opacity: 0.8; 
+        transform: translateY(-15px) translateX(10px) scale(1.2); 
+    }
+    50% { 
+        opacity: 1; 
+        transform: translateY(-25px) translateX(-5px) scale(1.5); 
+    }
+    75% { 
+        opacity: 0.6; 
+        transform: translateY(-10px) translateX(15px) scale(1.1); 
+    }
 }
 
 .candle-light {
@@ -1261,110 +1482,354 @@ section::-webkit-scrollbar-thumb:hover {
     50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
 }
 
-.desk-area {
+/* Enhanced contemplation scene */
+.contemplation-scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.desk-area.enhanced {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: var(--spacing-xl);
+    padding: var(--spacing-2xl);
+    background: radial-gradient(ellipse at center, rgba(255, 193, 7, 0.1) 0%, transparent 70%);
+    border-radius: 20px;
 }
 
-.young-man-thinking {
-    width: 80px;
-    height: 120px;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.8) 100%);
+.young-man-thinking.breathing {
+    width: 90px;
+    height: 130px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
     border-radius: 40% 40% 0 0 / 50% 50% 40% 40%;
     position: relative;
+    animation: thinking-breathing 4s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
 }
 
-.diary-book {
-    position: relative;
-    font-size: 3rem;
-    cursor: pointer;
-    transition: transform var(--transition-normal);
-    animation: book-glow 2s ease-in-out infinite;
+@keyframes thinking-breathing {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
 }
 
-.diary-book:hover {
-    transform: scale(1.1);
-}
-
-@keyframes book-glow {
-    0%, 100% { filter: drop-shadow(0 0 5px rgba(255, 193, 7, 0.5)); }
-    50% { filter: drop-shadow(0 0 15px rgba(255, 193, 7, 0.8)); }
-}
-
-.diary-tooltip {
+/* Thought bubble */
+.thought-bubble {
     position: absolute;
-    bottom: -30px;
+    top: -30px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(255, 255, 255, 0.9);
+    padding: var(--spacing-sm);
+    border-radius: 50%;
+    opacity: 0;
+    animation: thought-appear 3s ease-in-out infinite;
+}
+
+@keyframes thought-appear {
+    0%, 70%, 100% { opacity: 0; transform: translateX(-50%) scale(0.8); }
+    15%, 55% { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+/* Scattered papers */
+.scattered-papers {
+    position: absolute;
+    top: -20px;
+    right: -40px;
+}
+
+.paper {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.7;
+    animation: paper-flutter 4s ease-in-out infinite;
+}
+
+.paper-1 {
+    top: 0;
+    left: 0;
+    animation-delay: 0s;
+}
+
+.paper-2 {
+    top: 10px;
+    left: 15px;
+    animation-delay: 2s;
+}
+
+@keyframes paper-flutter {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+}
+
+/* Ink well */
+.ink-well {
+    position: absolute;
+    top: -10px;
+    left: -30px;
+    font-size: 1.8rem;
+    animation: ink-glint 5s ease-in-out infinite;
+}
+
+@keyframes ink-glint {
+    0%, 90%, 100% { filter: brightness(1); }
+    95% { filter: brightness(1.5) drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)); }
+}
+
+/* Enhanced diary book */
+.diary-book.glowing {
+    position: relative;
+    font-size: 3.5rem;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    animation: enhanced-book-glow 3s ease-in-out infinite;
+    z-index: 10;
+}
+
+.diary-book.glowing:hover {
+    transform: scale(1.15) rotate(2deg);
+    filter: drop-shadow(0 0 25px rgba(255, 193, 7, 1)) brightness(1.2);
+}
+
+@keyframes enhanced-book-glow {
+    0%, 100% { 
+        filter: drop-shadow(0 0 8px rgba(255, 193, 7, 0.6)) brightness(1); 
+        transform: rotate(-1deg);
+    }
+    50% { 
+        filter: drop-shadow(0 0 20px rgba(255, 193, 7, 0.9)) brightness(1.1); 
+        transform: rotate(1deg);
+    }
+}
+
+/* Book glow effect */
+.book-glow-effect {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: radial-gradient(circle, rgba(255, 193, 7, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+    animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Enhanced tooltip */
+.diary-tooltip.enhanced {
+    position: absolute;
+    bottom: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(30, 30, 30, 0.95) 100%);
     color: var(--text-primary);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: 5px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 10px;
     font-size: var(--font-size-sm);
     white-space: nowrap;
     opacity: 0;
-    transition: opacity var(--transition-fast);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
 }
 
-.diary-book:hover .diary-tooltip {
+.tooltip-arrow {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.95);
+}
+
+.diary-book.glowing:hover .diary-tooltip.enhanced {
     opacity: 1;
+    transform: translateX(-50%) translateY(-5px);
 }
 
-.diary-popup {
+/* Enhanced diary popup */
+.diary-popup.enhanced {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transition: all var(--transition-normal);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.diary-popup.active {
+.popup-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%);
+    backdrop-filter: blur(5px);
+}
+
+.diary-popup.enhanced.active {
     opacity: 1;
     visibility: visible;
 }
 
-.diary-content {
-    background: #f4e4c1;
-    padding: var(--spacing-3xl);
-    border-radius: 15px;
+.diary-content.enhanced {
+    background: linear-gradient(135deg, #f4e4c1 0%, #e6d3a3 100%);
+    padding: 0;
+    border-radius: 20px;
     position: relative;
-    max-width: 400px;
-    box-shadow: var(--shadow-xl);
+    max-width: 500px;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(139, 69, 19, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: scale(0.8) rotateY(-15deg);
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.handwritten-text {
+.diary-popup.enhanced.active .diary-content.enhanced {
+    transform: scale(1) rotateY(0deg);
+}
+
+/* Diary page styling */
+.diary-page {
+    padding: var(--spacing-3xl);
+    position: relative;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid rgba(139, 69, 19, 0.3);
+}
+
+.date {
     font-family: 'Caveat', cursive;
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-sm);
+    color: #8B4513;
+    font-weight: 500;
+}
+
+.page-decoration {
+    color: #8B4513;
+    font-size: var(--font-size-lg);
+}
+
+/* Enhanced handwritten text */
+.handwritten-text.animated {
+    font-family: 'Caveat', cursive;
+    font-size: var(--font-size-3xl);
     color: #2d1810;
     text-align: center;
+    font-weight: 700;
+    margin-bottom: var(--spacing-lg);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    animation: text-write 2s ease-out 0.5s both;
+}
+
+@keyframes text-write {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.handwritten-subtext {
+    font-family: 'Caveat', cursive;
+    font-size: var(--font-size-lg);
+    color: #5d4e37;
+    text-align: left;
+    margin-bottom: var(--spacing-xl);
+    line-height: 1.6;
+}
+
+.handwritten-subtext p {
+    margin-bottom: var(--spacing-sm);
+    opacity: 0;
+    animation: text-fade-in 0.8s ease-out forwards;
+}
+
+.handwritten-subtext p:nth-child(1) { animation-delay: 1.5s; }
+.handwritten-subtext p:nth-child(2) { animation-delay: 2s; }
+.handwritten-subtext p:nth-child(3) { animation-delay: 2.5s; }
+
+@keyframes text-fade-in {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.signature {
+    font-family: 'Caveat', cursive;
+    font-size: var(--font-size-lg);
+    color: #8B4513;
+    text-align: right;
     font-weight: 600;
+    font-style: italic;
+    opacity: 0;
+    animation: signature-appear 1s ease-out 3s both;
 }
 
-.close-diary {
+@keyframes signature-appear {
+    from { 
+        opacity: 0; 
+        transform: translateX(20px) rotate(2deg); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateX(0) rotate(0deg); 
+    }
+}
+
+/* Enhanced close button */
+.close-diary.enhanced {
     position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: var(--font-size-xl);
-    color: #2d1810;
+    top: 15px;
+    right: 20px;
+    background: rgba(139, 69, 19, 0.1);
+    border: 2px solid rgba(139, 69, 19, 0.3);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: var(--font-size-lg);
+    color: #8B4513;
     cursor: pointer;
-    transition: transform var(--transition-fast);
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.close-diary:hover {
-    transform: scale(1.2);
+.close-diary.enhanced:hover {
+    background: rgba(139, 69, 19, 0.2);
+    border-color: rgba(139, 69, 19, 0.5);
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Scene 4: Port Scene */
@@ -1906,33 +2371,109 @@ section::-webkit-scrollbar-thumb:hover {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
 }
 
-/* Responsive adjustments for story scenes */
+/* Enhanced mobile responsiveness */
 @media (max-width: 768px) {
     .story-title {
         font-size: var(--font-size-2xl);
+    }
+    
+    /* Better touch targets for mobile */
+    .character-group,
+    .diary-book,
+    .theory-point,
+    .element,
+    .person-group {
+        min-width: 60px;
+        min-height: 60px;
+        padding: var(--spacing-lg);
     }
     
     .character-groups,
     .interactive-elements,
     .modern-people {
         flex-direction: column;
-        gap: var(--spacing-lg);
+        gap: var(--spacing-xl);
         align-items: center;
     }
     
     .theory-points {
         flex-direction: column;
-        gap: var(--spacing-xl);
+        gap: var(--spacing-2xl);
     }
     
-    .theory-text-box,
+    /* Mobile-friendly hover cards */
+    .enhanced-card,
     .hover-info {
         max-width: 90vw;
         font-size: var(--font-size-sm);
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+    }
+    
+    /* Show cards on tap for mobile */
+    .character-group:active .enhanced-card,
+    .element:active .hover-info,
+    .person-group:active .hover-info {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
     }
     
     .scene-content {
         padding: var(--spacing-md);
+    }
+    
+    /* Enhanced diary popup for mobile */
+    .diary-content.enhanced {
+        max-width: 95vw;
+        margin: var(--spacing-md);
+    }
+    
+    .diary-page {
+        padding: var(--spacing-lg);
+    }
+    
+    .handwritten-text.animated {
+        font-size: var(--font-size-2xl);
+    }
+    
+    /* Better mobile character silhouettes */
+    .character-silhouette {
+        width: 100px;
+        height: 160px;
+    }
+    
+    /* Mobile scene transitions */
+    .story-scene {
+        padding: 60px var(--spacing-sm) var(--spacing-sm);
+    }
+    
+    /* Mobile-friendly desk area */
+    .desk-area.enhanced {
+        flex-direction: column;
+        gap: var(--spacing-lg);
+        padding: var(--spacing-lg);
+    }
+    
+    /* Larger touch targets for interactive elements */
+    .group-icon {
+        font-size: 4rem;
+    }
+    
+    .diary-book.glowing {
+        font-size: 4rem;
+    }
+    
+    /* Mobile tooltip adjustments */
+    .diary-tooltip.enhanced {
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 80vw;
     }
 }
 

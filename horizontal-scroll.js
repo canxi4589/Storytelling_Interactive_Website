@@ -232,7 +232,7 @@ class HorizontalScrollNavigator {
 
     // Setup story-specific interactions
     setupStoryInteractions() {
-        // Scene 3: Diary interaction
+        // Scene 3: Enhanced diary interaction
         const diaryBook = document.querySelector('.diary-book');
         const diaryPopup = document.getElementById('diaryPopup');
         const closeDiary = document.querySelector('.close-diary');
@@ -240,18 +240,37 @@ class HorizontalScrollNavigator {
         if (diaryBook && diaryPopup && closeDiary) {
             diaryBook.addEventListener('click', () => {
                 diaryPopup.classList.add('active');
+                // Play page turn sound effect
+                this.playSound('page-turn');
             });
 
             closeDiary.addEventListener('click', () => {
                 diaryPopup.classList.remove('active');
             });
 
-            diaryPopup.addEventListener('click', (e) => {
-                if (e.target === diaryPopup) {
+            // Close on backdrop click
+            const backdrop = diaryPopup.querySelector('.popup-backdrop');
+            if (backdrop) {
+                backdrop.addEventListener('click', () => {
                     diaryPopup.classList.remove('active');
+                });
+            }
+        }
+
+        // Scene 2: Enhanced character group interactions
+        const characterGroups = document.querySelectorAll('.character-group');
+        characterGroups.forEach(group => {
+            group.addEventListener('mouseenter', () => {
+                const soundType = group.dataset.sound;
+                if (soundType) {
+                    this.playAmbientSound(soundType);
                 }
             });
-        }
+            
+            group.addEventListener('mouseleave', () => {
+                this.stopAmbientSounds();
+            });
+        });
 
         // Scene 6: Theory points interaction
         const theoryPoints = document.querySelectorAll('.theory-point');
@@ -262,10 +281,12 @@ class HorizontalScrollNavigator {
             point.addEventListener('click', () => {
                 point.style.opacity = '0.5';
                 clickedPoints.add(point.dataset.concept);
+                this.playSound('theory-point');
                 
                 if (clickedPoints.size === 3 && conclusionText) {
                     setTimeout(() => {
                         conclusionText.classList.add('show');
+                        this.playSound('revelation');
                     }, 500);
                 }
             });
@@ -276,6 +297,104 @@ class HorizontalScrollNavigator {
         
         // Character animation triggers
         this.setupCharacterAnimations();
+        
+        // Setup scene transitions
+        this.setupSceneTransitions();
+        
+        // Initialize ambient sounds
+        this.setupAmbientSounds();
+    }
+
+    // Enhanced sound system
+    playSound(soundType) {
+        // In a real implementation, you would load actual audio files
+        console.log(`Playing sound: ${soundType}`);
+        
+        // Simulate sound feedback with visual effects
+        switch(soundType) {
+            case 'page-turn':
+                this.createSoundFeedback('📖', '#FFD700');
+                break;
+            case 'theory-point':
+                this.createSoundFeedback('✨', '#6366f1');
+                break;
+            case 'revelation':
+                this.createSoundFeedback('💡', '#fbbf24');
+                break;
+        }
+    }
+
+    playAmbientSound(soundType) {
+        const audioElements = {
+            'wind': document.querySelector('.wind-sound'),
+            'children': document.querySelector('.children-sound'),
+            'factory': document.querySelector('.factory-sound')
+        };
+        
+        const audio = audioElements[soundType];
+        if (audio) {
+            audio.volume = 0.3;
+            audio.play().catch(e => console.log('Audio play failed:', e));
+        }
+    }
+
+    stopAmbientSounds() {
+        const allAudio = document.querySelectorAll('.scene-audio');
+        allAudio.forEach(audio => {
+            audio.pause();
+        });
+    }
+
+    createSoundFeedback(emoji, color) {
+        const feedback = document.createElement('div');
+        feedback.innerHTML = emoji;
+        feedback.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: ${color};
+            pointer-events: none;
+            z-index: 9999;
+            animation: sound-feedback 1s ease-out forwards;
+        `;
+        
+        document.body.appendChild(feedback);
+        
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sound-feedback {
+                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+                50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+                100% { opacity: 0; transform: translate(-50%, -50%) scale(1) translateY(-50px); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        setTimeout(() => {
+            document.body.removeChild(feedback);
+            document.head.removeChild(style);
+        }, 1000);
+    }
+
+    setupSceneTransitions() {
+        // Add transition effects between scenes
+        const scenes = document.querySelectorAll('.story-scene');
+        scenes.forEach((scene, index) => {
+            scene.style.transition = 'opacity 0.8s ease-in-out, transform 0.8s ease-in-out';
+        });
+    }
+
+    setupAmbientSounds() {
+        // Setup ambient sounds for each scene
+        const sceneAudios = document.querySelectorAll('.scene-audio');
+        sceneAudios.forEach(audio => {
+            audio.volume = 0.2;
+            // Preload audio
+            audio.load();
+        });
     }
 
     createStars() {

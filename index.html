@@ -6,31 +6,43 @@
     <meta name="description" content="Explore immersive worlds and embark on epic adventures in our interactive experience">
     <meta name="keywords" content="interactive, adventure, worlds, exploration, gaming">
     <meta name="author" content="Your Name">
-    <title>World Explorer - Interactive Adventure</title>
+    <title>Tư tưởng Hồ Chí Minh về Chủ nghĩa Xã hội - Interactive Story</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <div class="nav-logo">
-                <h1>World Explorer</h1>
+                <h1>Tư tưởng Hồ Chí Minh</h1>
             </div>
             <ul class="nav-menu" role="menubar">
                 <li class="nav-item" role="none">
-                    <a href="#home" class="nav-link" role="menuitem" aria-current="page">Home</a>
+                    <a href="#scene1" class="nav-link" role="menuitem" aria-current="page">Khởi đầu</a>
                 </li>
                 <li class="nav-item" role="none">
-                    <a href="#worlds" class="nav-link" role="menuitem">Worlds</a>
+                    <a href="#scene2" class="nav-link" role="menuitem">Hoàn cảnh</a>
                 </li>
                 <li class="nav-item" role="none">
-                    <a href="#about" class="nav-link" role="menuitem">About</a>
+                    <a href="#scene3" class="nav-link" role="menuitem">Quyết tâm</a>
                 </li>
                 <li class="nav-item" role="none">
-                    <a href="#contact" class="nav-link" role="menuitem">Contact</a>
+                    <a href="#scene4" class="nav-link" role="menuitem">Ra đi</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a href="#scene5" class="nav-link" role="menuitem">Châu Âu</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a href="#scene6" class="nav-link" role="menuitem">Lý luận</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a href="#scene7" class="nav-link" role="menuitem">Trở về</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a href="#scene8" class="nav-link" role="menuitem">Con người mới</a>
                 </li>
             </ul>
             <div class="hamburger" aria-label="Toggle navigation menu" role="button" tabindex="0">
@@ -43,223 +55,251 @@
 
     <!-- Horizontal Container -->
     <div class="horizontal-container" id="horizontalContainer">
-        <!-- Hero Section -->
-    <section id="home" class="hero" role="banner">
-        <div class="hero-background">
-            <div class="particles" id="particles"></div>
-        </div>
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="title-line">Explore</span>
-                <span class="title-line">Infinite</span>
-                <span class="title-line">Worlds</span>
-            </h1>
-            <p class="hero-description">
-                Embark on an extraordinary journey through immersive digital realms. 
-                Each world holds unique mysteries waiting to be discovered.
-            </p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary" aria-describedby="cta-description">
-                    Start Adventure
-                    <span class="btn-arrow">→</span>
-                </button>
-                <button class="btn btn-secondary" aria-describedby="learn-more-description">
-                    Learn More
-                </button>
+        
+        <!-- Scene 1: Preload - Nguyen Tat Thanh under starry sky -->
+        <section id="scene1" class="story-scene scene-1" role="banner">
+            <div class="scene-background starry-sky">
+                <div class="stars" id="stars"></div>
+                <div class="shooting-star"></div>
             </div>
-            <div class="scroll-indicator" aria-label="Scroll down to explore">
+            <div class="scene-content">
+                <div class="character ho-chi-minh" id="hoChiMinh">
+                    <div class="character-silhouette"></div>
+                </div>
+                <div class="story-text fade-in-up">
+                    <h1 class="story-title">
+                        <span class="title-line">Tư tưởng</span>
+                        <span class="title-line">Hồ Chí Minh</span>
+                        <span class="title-line">về Chủ nghĩa Xã hội</span>
+                    </h1>
+                    <p class="story-subtitle">
+                        Hành trình tìm đường cứu nước và xây dựng chủ nghĩa xã hội ở Việt Nam
+                    </p>
+                </div>
+                <div class="scroll-indicator" aria-label="Scroll to continue">
+                    <div class="scroll-text">Cuộn để bắt đầu</div>
                 <div class="scroll-arrow"></div>
             </div>
         </div>
     </section>
 
-    <!-- Worlds Section -->
-    <section id="worlds" class="worlds-section " role="main">
-        <div class="hero-background">
-            <div class="particles" id="particles"></div>
+        <!-- Scene 2: Social conditions of Vietnam in 1900s -->
+        <section id="scene2" class="story-scene scene-2">
+            <div class="scene-background vietnam-1900s">
+                <div class="sky-gradient"></div>
+                <div class="mountains"></div>
+                <div class="rice-fields"></div>
+                <div class="factory-smoke"></div>
         </div>
-        <div class="container ">
-            <h2 class="section-title">Choose Your World</h2>
-            <p class="section-description">
-                Each world offers a unique experience with its own challenges and rewards
-            </p>
-            
-            <div class="worlds-grid">
-                <div class="world-card" tabindex="0" role="button" aria-label="Explore Mystic Forest world">
-                    <div class="world-image">
-                        <div class="world-overlay"></div>
-                        <h3 class="world-title">Mystic Forest</h3>
-                    </div>
-                    <div class="world-content">
-                        <p class="world-description">
-                            A magical realm filled with ancient trees and mystical creatures. 
-                            Navigate through enchanted pathways and discover hidden secrets.
-                        </p>
-                        <div class="world-stats">
-                            <span class="stat">Difficulty: Medium</span>
-                            <span class="stat">Duration: 2-3 hours</span>
+            <div class="scene-content">
+                <h2 class="scene-title">Việt Nam những năm 1900</h2>
+                <div class="character-groups">
+                    <div class="character-group farmers" tabindex="0" role="button" aria-label="Hover to see farmers' hardships">
+                        <div class="group-icon">👨‍🌾</div>
+                        <div class="hover-card">
+                            <p>"Ruộng đồng khô cạn, không còn để ăn..."</p>
                         </div>
-                        <button class="world-btn">Enter World</button>
+                    </div>
+                    <div class="character-group workers" tabindex="0" role="button" aria-label="Hover to see workers' struggles">
+                        <div class="group-icon">👷‍♂️</div>
+                        <div class="hover-card">
+                            <p>"Làm mười mấy tiếng mà không đủ sống..."</p>
+                </div>
+                    </div>
+                    <div class="character-group children" tabindex="0" role="button" aria-label="Hover to see children's dreams">
+                        <div class="group-icon">👶</div>
+                        <div class="hover-card">
+                            <p>"Con muốn đi học..."</p>
+                        </div>
                     </div>
                 </div>
+                <div class="scene-description">
+                    <p>Đất nước Việt Nam những năm đầu thế kỷ 20 chìm trong đói nghèo và nô lệ thực dân</p>
+                </div>
+                <div class="character ho-chi-minh young" id="youngHoChiMinh">
+                    <div class="character-silhouette"></div>
+                </div>
+            </div>
+            <audio class="scene-audio" loop>
+                <!-- Wind and crying sounds would be added here -->
+            </audio>
+        </section>
 
-                <div class="world-card" tabindex="0" role="button" aria-label="Explore Crystal Caves world">
-                    <div class="world-image">
-                        <div class="world-overlay"></div>
-                        <h3 class="world-title">Crystal Caves</h3>
-                    </div>
-                    <div class="world-content">
-                        <p class="world-description">
-                            Deep underground caverns filled with glowing crystals and mysterious formations. 
-                            Solve puzzles and uncover ancient treasures.
-                        </p>
-                        <div class="world-stats">
-                            <span class="stat">Difficulty: Hard</span>
-                            <span class="stat">Duration: 3-4 hours</span>
-                        </div>
-                        <button class="world-btn">Enter World</button>
+        <!-- Scene 3: Decision to leave -->
+        <section id="scene3" class="story-scene scene-3">
+            <div class="scene-background dark-hut">
+                <div class="hut-interior"></div>
+                <div class="fireflies"></div>
+                <div class="candle-light"></div>
+            </div>
+            <div class="scene-content">
+                <div class="desk-area">
+                    <div class="young-man-thinking"></div>
+                    <div class="diary-book" tabindex="0" role="button" aria-label="Click to read the diary">
+                        📖
+                        <div class="diary-tooltip">Nhấp để đọc nhật ký</div>
                     </div>
                 </div>
+                <div class="diary-popup" id="diaryPopup">
+                    <div class="diary-content">
+                        <div class="handwritten-text">
+                            "Tôi phải ra đi"
+                        </div>
+                        <button class="close-diary" aria-label="Close diary">×</button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                <div class="world-card" tabindex="0" role="button" aria-label="Explore Sky Islands world">
-                    <div class="world-image">
-                        <div class="world-overlay"></div>
-                        <h3 class="world-title">Sky Islands</h3>
+        <!-- Scene 4: Nha Rong Wharf departure -->
+        <section id="scene4" class="story-scene scene-4">
+            <div class="scene-background port-scene">
+                <div class="sky"></div>
+                <div class="water-waves"></div>
+                <div class="wharf"></div>
                     </div>
-                    <div class="world-content">
-                        <p class="world-description">
-                            Floating islands high above the clouds. Master the art of flight 
-                            and explore the endless sky realm.
-                        </p>
-                        <div class="world-stats">
-                            <span class="stat">Difficulty: Easy</span>
-                            <span class="stat">Duration: 1-2 hours</span>
-                        </div>
-                        <button class="world-btn">Enter World</button>
+            <div class="scene-content">
+                <div class="ship" tabindex="0" role="button" aria-label="Hover to see departure details">
+                    <div class="ship-body"></div>
+                    <div class="ship-name">Amiral Latouche-Tréville</div>
+                    <div class="hover-info">
+                        <p>Ngày 5/6/1911, Nguyễn Tất Thành lên đường sang Pháp</p>
                     </div>
                 </div>
+                <div class="character ho-chi-minh departure" id="departureHoChiMinh">
+                    <div class="character-silhouette"></div>
+                </div>
+                <div class="floating-bubbles">
+                    <div class="bubble">bóc lột</div>
+                    <div class="bubble">thuế</div>
+                    <div class="bubble">khát vọng</div>
+                </div>
+                <audio class="scene-audio" loop>
+                    <!-- Wave sounds would be added here -->
+                </audio>
+            </div>
+        </section>
 
-                <div class="world-card" tabindex="0" role="button" aria-label="Explore Digital City world">
-                    <div class="world-image">
-                        <div class="world-overlay"></div>
-                        <h3 class="world-title">Digital City</h3>
-                    </div>
-                    <div class="world-content">
-                        <p class="world-description">
-                            A futuristic metropolis where technology and nature merge. 
-                            Navigate through neon-lit streets and cybernetic landscapes.
-                        </p>
-                        <div class="world-stats">
-                            <span class="stat">Difficulty: Medium</span>
-                            <span class="stat">Duration: 2-3 hours</span>
-                        </div>
-                        <button class="world-btn">Enter World</button>
-                    </div>
+        <!-- Scene 5: Europe/France journey -->
+        <section id="scene5" class="story-scene scene-5">
+            <div class="scene-background europe-journey">
+                <div class="country-backdrop" id="countryBackdrop"></div>
+                <div class="journey-path"></div>
+            </div>
+            <div class="scene-content">
+                <div class="traveling-character" id="travelingHoChiMinh">
+                    <div class="character-silhouette"></div>
                 </div>
+                <div class="country-landmarks">
+                    <div class="landmark france">🗼</div>
+                    <div class="landmark usa">🗽</div>
+                    <div class="landmark uk">🕐</div>
+                </div>
+                <div class="theory-text-box">
+                    <p>Gặp gỡ phong trào công nhân quốc tế, tiếp thu lý luận Mác–Lênin.</p>
+                    <p>Nhận ra: giải phóng dân tộc gắn liền giải phóng giai cấp.</p>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">About Our Worlds</h2>
-                    <p class="about-description">
-                        We create immersive digital experiences that transport you to extraordinary realms. 
-                        Each world is carefully crafted with attention to detail, offering unique challenges, 
-                        beautiful environments, and engaging storylines.
-                    </p>
-                    <div class="features">
-                        <div class="feature">
-                            <div class="feature-icon">🎮</div>
-                            <h3>Interactive Gameplay</h3>
-                            <p>Engage with dynamic environments and responsive systems</p>
+        <!-- Scene 6: Socialist theory is inevitable -->
+        <section id="scene6" class="story-scene scene-6">
+            <div class="scene-background theory-space">
+                <div class="cosmic-background"></div>
+                <div class="world-map"></div>
+            </div>
+            <div class="scene-content">
+                <div class="theory-book" id="theoryBook">
+                    <div class="book-title">Mác–Lênin</div>
                         </div>
-                        <div class="feature">
-                            <div class="feature-icon">🎨</div>
-                            <h3>Stunning Visuals</h3>
-                            <p>Experience breathtaking graphics and smooth animations</p>
+                <div class="theory-points">
+                    <div class="theory-point europe" data-concept="historical-law" tabindex="0">
+                        <div class="point-light"></div>
+                        <div class="point-label">Quy luật lịch sử</div>
                         </div>
-                        <div class="feature">
-                            <div class="feature-icon">🌍</div>
-                            <h3>Diverse Worlds</h3>
-                            <p>Explore multiple unique environments with distinct themes</p>
+                    <div class="theory-point asia" data-concept="productive-forces" tabindex="0">
+                        <div class="point-light"></div>
+                        <div class="point-label">Phát triển lực lượng sản xuất</div>
                         </div>
+                    <div class="theory-point america" data-concept="class-struggle" tabindex="0">
+                        <div class="point-light"></div>
+                        <div class="point-label">Đấu tranh giai cấp</div>
                     </div>
                 </div>
-                <div class="about-visual">
-                    <div class="visual-element"></div>
-                </div>
+                <div class="conclusion-text" id="conclusionText">
+                    <div class="handwritten-conclusion">
+                        "Chủ nghĩa xã hội là quy luật phát triển tất yếu"
+                    </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="section-description">
-                Ready to start your adventure? Contact us for more information
-            </p>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <h3>Email</h3>
-                        <p>hello@worldexplorer.com</p>
+        <!-- Scene 7: Return and building socialism -->
+        <section id="scene7" class="story-scene scene-7">
+            <div class="scene-background vietnam-independent">
+                <div class="modern-landscape"></div>
+                <div class="rice-fields-green"></div>
+                <div class="modern-factories"></div>
+            </div>
+            <div class="scene-content">
+                <h2 class="scene-title">Trở về & Xây dựng Chủ nghĩa Xã hội</h2>
+                <div class="interactive-elements">
+                    <div class="element children-playing" tabindex="0" role="button">
+                        <div class="element-icon">👶</div>
+                        <div class="hover-info">
+                            <p>Mục tiêu: Xã hội công bằng, dân chủ, văn minh; con người phát triển toàn diện.</p>
+                        </div>
                     </div>
-                    <div class="contact-item">
-                        <h3>Phone</h3>
-                        <p>+1 (555) 123-4567</p>
+                    <div class="element school" tabindex="0" role="button">
+                        <div class="element-icon">🏫</div>
+                        <div class="hover-info">
+                            <p>Tiến trình: "Vừa làm vừa chỉnh", phù hợp trình độ kinh tế – xã hội, coi trọng giáo dục, đạo đức, văn hóa.</p>
+                        </div>
                     </div>
-                    <div class="contact-item">
-                        <h3>Social</h3>
-                        <div class="social-links">
-                            <a href="#" aria-label="Twitter">Twitter</a>
-                            <a href="#" aria-label="Discord">Discord</a>
-                            <a href="#" aria-label="YouTube">YouTube</a>
+                    <div class="element flag" tabindex="0" role="button">
+                        <div class="element-icon">🚩</div>
+                        <div class="hover-info">
+                            <p>Lãnh đạo: Đảng Cộng sản – Nhà nước của dân, do dân, vì dân; đoàn kết dân tộc, hợp tác quốc tế.</p>
                         </div>
                     </div>
                 </div>
-                <form class="contact-form" aria-label="Contact form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h3>World Explorer</h3>
-                    <p>Exploring infinite possibilities</p>
+        <!-- Scene 8: Socialist people -->
+        <section id="scene8" class="story-scene scene-8">
+            <div class="scene-background modern-society">
+                <div class="city-skyline"></div>
+                <div class="modern-buildings"></div>
+            </div>
+            <div class="scene-content">
+                <h2 class="scene-title">Con người mới của Xã hội Chủ nghĩa</h2>
+                <div class="modern-people">
+                    <div class="person-group students" tabindex="0" role="button">
+                        <div class="person-icon">👩‍🎓</div>
+                        <div class="hover-info">
+                            <p>Ý thức làm chủ, tinh thần tập thể</p>
+                        </div>
+                    </div>
+                    <div class="person-group workers" tabindex="0" role="button">
+                        <div class="person-icon">👷‍♀️</div>
+                        <div class="hover-info">
+                            <p>Cần – kiệm – liêm – chính, chống chủ nghĩa cá nhân</p>
+                        </div>
+                    </div>
+                    <div class="person-group intellectuals" tabindex="0" role="button">
+                        <div class="person-icon">👨‍💼</div>
+                        <div class="hover-info">
+                            <p>Học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="footer-links">
-                    <a href="#privacy">Privacy Policy</a>
-                    <a href="#terms">Terms of Service</a>
-                    <a href="#support">Support</a>
+                <div class="final-message">
+                    <h3>Con người xã hội chủ nghĩa là động lực quyết định đưa đất nước tiến lên</h3>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 World Explorer. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+        </section>
+
     </div>
 
     <script src="horizontal-scroll.js"></script>

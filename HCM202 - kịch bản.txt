@@ -1,0 +1,64 @@
+﻿Scene 1: Preload
+* Title: None
+* Background: Bầu trời tối có sao
+* Text: None
+* Nhân vật: Nguyễn Tất Thành
+* Mô tả: Scene mở đầu, chỉ cần có nhân vật Bác Hồ và background
+Scene 2: Cảnh quan xã hội
+* Title: Việt Nam những năm 1900
+* Background:  Bầu trời xám (từ scene 1), làng mạc rách nát.
+* Midground: Đồng ruộng lúa chết, ống khói nhà máy nhỏ
+* Foreground: 3 nhóm nhân vật (Những người nông dân - Những người công nhân - Đám trẻ em)
+* SFX: tiếng gió, tiếng trẻ em rên rỉ
+* Nhân vật: Nguyễn Tất Thành
+* Mô tả: Hover lên mỗi nhóm nhân vật sẽ hiển thị từng small card (“Ruộng đồng khô cạn, không còn để ăn…”, “Làm mười mấy tiếng mà không đủ sống…”, “Con muốn đi học…”)
+Scene 2.1: 
+
+
+Scene 3: Quyết tâm ra đi
+* Chuyển từ scene 2: Nhân vật đi vào một căn chòi, khi đi vào thì mất nhân vật.
+* Background: Trong căn chòi tối, đèn đom đóm, ở giữa là cái bàn có người thanh niên ngồi suy tư, cuốn nhật ký trên bàn.
+* Nhân vật: None
+* Mô tả: Bấm vào cuốn sách trên bàn -> Hiện ra tờ giấy to giữa màn hình ghi chữ viết tay “Tôi phải ra đi”.
+
+
+Scene 4: Bến Nhà Rồng
+* Background: cảng biển, tàu “Amiral Latouche-Tréville”
+* Sfx: tiếng sóng vỗ
+* Nhân vật: Nguyễn Tất Thành đứng kế tàu.
+* Mô tả: Hover lên tàu hiển thị “Ngày 5/6/1911, Nguyễn Tất Thành lên đường sang Pháp”.
+* Hiệu ứng: scroll thì nhân vật biến mất, tàu đi xa dần rồi background biến thành cảng Marseilles, một vài bong bóng pop-up nhỏ trên mặt nước có các từ khóa: “bóc lột”, “thuế”, “khát vọng”.
+Scene 5: Châu Âu/Pháp: Tiếp xúc với phong trào công nhân và tư tưởng
+* Chuyển cảnh: Nhân vật NTT đi xuống tàu.
+* Mô tả: khi scroll Bác Hồ đi qua khung cảnh background thay đổi liên tục là các nước Pháp (Tháp Eiffel), Mỹ (Tượng nữ thần tự do), Anh (Đồng hồ Big Ben), cuối cùng quay lại Pháp, tham gia Đảng Xã hội Pháp
+
+
+Tháng 7/1920, Nguyễn Ái Quốc đọc được Luận cương của Lênin về vấn đề dân tộc và thuộc địa. Tại Đại hội Đảng Xã hội Pháp người đã bỏ phiếu tán thành Quốc tế III và tham gia thành lập Đảng Cộng sản Pháp, trở thành người Cộng sản đầu tiên của Việt Nam. Cách mạng Tháng Mười Nga thành công, Người đã nhận thấy “chỉ có cách mạng Nga là thành công đến nơi” vì đem lại quyền lợi cho đông đảo quần chúng công nông.
+* Text bật ra:
+* Gặp gỡ phong trào công nhân quốc tế, tiếp thu lý luận Mác–Lênin.
+* Nhận ra: giải phóng dân tộc gắn liền giải phóng giai cấp.
+
+
+Scene 6: CNXH là tất yếu
+* Chuyển cảnh: một cuốn sách tiêu đề Mác–Lênin mở ra giữa màn hình rồi phát sáng, sau đó cuốn sách biến mất, màn hình hiển thị 3 điểm sáng tương ứng với 3 bản đồ:
+Vị trí: 3 cụm điểm sáng đặt trên bản đồ:
+Quy luật lịch sử (châu Âu)
+Phát triển lực lượng sản xuất (châu Á)
+Đấu tranh giai cấp (Mỹ–La Tinh tượng trưng)
+* Tương tác: Người dùng click vào từng điểm sáng (quy luật lịch sử, phát triển lực lượng sản xuất, đấu tranh giai cấp), sau khi đã click vào 3 điểm sáng, bung ra trên màn hình chữ viết tay ”chủ nghĩa xã hội là quy luật phát triển tất yếu” 
+
+
+Scene 7: Trở về & bắt tay xây dựng CNXH ở Việt Nam, quá độ lên CNXH
+* Chuyển cảnh: tờ giấy biến mất, thay vào đó là background như dưới
+* Background: Khung cảnh Việt Nam độc lập, đồng ruộng và nhà máy hiện đại dần xuất hiện, đám trẻ nô đùa.
+* Hover vào từng vật thể:
+Đám trẻ con: “Mục tiêu: Xã hội công bằng, dân chủ, văn minh; con người phát triển toàn diện.”
+Trường học: “Tiến trình: “Vừa làm vừa chỉnh”, phù hợp trình độ kinh tế – xã hội, coi trọng giáo dục, đạo đức, văn hóa”.
+Cờ búa liềm: “Lãnh đạo: Đảng Cộng sản – Nhà nước của dân, do dân, vì dân; đoàn kết dân tộc, hợp tác quốc tế”.
+Scene 8: Con người mới của XHCN
+* Background: Hình ảnh học sinh, công nhân, trí thức trong xã hội hiện đại.
+* Khi hover từng vật thể:
+* “Ý thức làm chủ, tinh thần tập thể”.
+* “Cần – kiệm – liêm – chính, chống chủ nghĩa cá nhân”.
+* “Học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh”.
+Thông điệp chốt: Con người xã hội chủ nghĩa là động lực quyết định đưa đất nước tiến lên.

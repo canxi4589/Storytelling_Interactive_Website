@@ -1,10 +1,9 @@
-// Horizontal Scrolling Navigation for World Explorer Website
+// Native Horizontal Scrolling Navigation
 
 class HorizontalScrollNavigator {
     constructor() {
         this.currentSection = 0;
-        this.sections = ['home', 'worlds', 'about', 'contact', 'footer'];
-        this.horizontalContainer = document.getElementById('horizontalContainer');
+        this.sections = ['scene1', 'scene2', 'scene3', 'scene4', 'scene5', 'scene6', 'scene7', 'scene8'];
         this.navLinks = document.querySelectorAll('.nav-link');
         this.isScrolling = false;
         
@@ -14,9 +13,26 @@ class HorizontalScrollNavigator {
     init() {
         this.setupEventListeners();
         this.updateActiveNavLink();
+        this.setupScrollDetection();
         this.setupKeyboardNavigation();
         this.setupMouseWheelNavigation();
         this.setupTouchNavigation();
+    }
+
+    setupScrollDetection() {
+        // Track scroll position to update active navigation
+        window.addEventListener('scroll', () => {
+            if (!this.isScrolling) {
+                const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+                const sectionIndex = Math.round(scrollLeft / window.innerWidth);
+                
+                if (sectionIndex !== this.currentSection && sectionIndex >= 0 && sectionIndex < this.sections.length) {
+                    this.currentSection = sectionIndex;
+                    this.updateActiveNavLink();
+                    this.updateURL();
+                }
+            }
+        });
     }
 
     setupEventListeners() {
@@ -28,20 +44,8 @@ class HorizontalScrollNavigator {
             });
         });
 
-        // Hero buttons
-        const startBtn = document.querySelector('.btn-primary');
-        if (startBtn) {
-            startBtn.addEventListener('click', () => {
-                this.goToSection(1); // Worlds section
-            });
-        }
-
-        const learnMoreBtn = document.querySelector('.btn-secondary');
-        if (learnMoreBtn) {
-            learnMoreBtn.addEventListener('click', () => {
-                this.goToSection(2); // About section
-            });
-        }
+        // Interactive story elements will be handled separately
+        this.setupStoryInteractions();
 
         // Mobile navigation toggle
         const hamburger = document.querySelector('.hamburger');
@@ -69,12 +73,10 @@ class HorizontalScrollNavigator {
 
             switch(e.key) {
                 case 'ArrowLeft':
-                case 'ArrowUp':
                     e.preventDefault();
                     this.previousSection();
                     break;
                 case 'ArrowRight':
-                case 'ArrowDown':
                     e.preventDefault();
                     this.nextSection();
                     break;
@@ -91,19 +93,19 @@ class HorizontalScrollNavigator {
     }
 
     setupMouseWheelNavigation() {
-        let isThrottled = false;
-        
+        // Convert vertical mouse wheel to horizontal scroll
         document.addEventListener('wheel', (e) => {
-            if (this.isScrolling || isThrottled) return;
-            
-            isThrottled = true;
-            setTimeout(() => isThrottled = false, 100);
-
-            if (e.deltaY > 0 || e.deltaX > 0) {
-                this.nextSection();
-            } else {
-                this.previousSection();
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                // Already horizontal scroll, let it through
+                return;
             }
+            
+            // Convert vertical scroll to horizontal
+            e.preventDefault();
+            window.scrollBy({
+                left: e.deltaY,
+                behavior: 'auto'
+            });
         }, { passive: false });
     }
 
@@ -155,20 +157,30 @@ class HorizontalScrollNavigator {
         this.isScrolling = true;
         this.currentSection = sectionIndex;
         
-        // Calculate transform value
-        const translateX = -sectionIndex * 100;
-        this.horizontalContainer.style.transform = `translateX(${translateX}vw)`;
+        // Scroll to the section using native browser scroll
+        const targetScrollLeft = sectionIndex * window.innerWidth;
+        
+        window.scrollTo({
+            left: targetScrollLeft,
+            behavior: 'smooth'
+        });
+        
+        console.log(`Navigating to section ${sectionIndex}, scroll to: ${targetScrollLeft}px`);
         
         // Update active navigation link
         this.updateActiveNavLink();
         
         // Update URL hash
-        window.history.pushState(null, null, `#${this.sections[sectionIndex]}`);
+        this.updateURL();
         
         // Reset scrolling flag after animation
         setTimeout(() => {
             this.isScrolling = false;
         }, 800);
+    }
+
+    updateURL() {
+        window.history.pushState(null, null, `#${this.sections[this.currentSection]}`);
     }
 
     nextSection() {
@@ -203,12 +215,102 @@ class HorizontalScrollNavigator {
             this.goToSection(sectionIndex);
         }
     }
+
+    // Initialize from URL hash on page load
+    initializeFromHash() {
+        const hash = window.location.hash.slice(1);
+        const sectionIndex = this.sections.indexOf(hash);
+        if (sectionIndex !== -1) {
+            this.currentSection = sectionIndex;
+            const targetScrollLeft = sectionIndex * window.innerWidth;
+            window.scrollTo({
+                left: targetScrollLeft,
+                behavior: 'auto' // No smooth scroll on initial load
+            });
+        }
+    }
+
+    // Setup story-specific interactions
+    setupStoryInteractions() {
+        // Scene 3: Diary interaction
+        const diaryBook = document.querySelector('.diary-book');
+        const diaryPopup = document.getElementById('diaryPopup');
+        const closeDiary = document.querySelector('.close-diary');
+
+        if (diaryBook && diaryPopup && closeDiary) {
+            diaryBook.addEventListener('click', () => {
+                diaryPopup.classList.add('active');
+            });
+
+            closeDiary.addEventListener('click', () => {
+                diaryPopup.classList.remove('active');
+            });
+
+            diaryPopup.addEventListener('click', (e) => {
+                if (e.target === diaryPopup) {
+                    diaryPopup.classList.remove('active');
+                }
+            });
+        }
+
+        // Scene 6: Theory points interaction
+        const theoryPoints = document.querySelectorAll('.theory-point');
+        const conclusionText = document.getElementById('conclusionText');
+        let clickedPoints = new Set();
+
+        theoryPoints.forEach(point => {
+            point.addEventListener('click', () => {
+                point.style.opacity = '0.5';
+                clickedPoints.add(point.dataset.concept);
+                
+                if (clickedPoints.size === 3 && conclusionText) {
+                    setTimeout(() => {
+                        conclusionText.classList.add('show');
+                    }, 500);
+                }
+            });
+        });
+
+        // Add stars to scene 1
+        this.createStars();
+        
+        // Character animation triggers
+        this.setupCharacterAnimations();
+    }
+
+    createStars() {
+        const stars = document.getElementById('stars');
+        if (stars) {
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'particle';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                stars.appendChild(star);
+            }
+        }
+    }
+
+    setupCharacterAnimations() {
+        // Add any character-specific animations here
+        const characters = document.querySelectorAll('.character');
+        characters.forEach(character => {
+            character.addEventListener('mouseenter', () => {
+                character.style.transform += ' scale(1.05)';
+            });
+            
+            character.addEventListener('mouseleave', () => {
+                character.style.transform = character.style.transform.replace(' scale(1.05)', '');
+            });
+        });
+    }
 }
 
-// Enhanced World Explorer with horizontal scrolling
-class WorldExplorerHorizontal extends WorldExplorer {
+// Enhanced Story Navigator with horizontal scrolling
+class HoChiMinhStoryNavigator {
     constructor() {
-        super();
         this.horizontalNavigator = new HorizontalScrollNavigator();
         this.setupHorizontalSpecificFeatures();
     }
@@ -220,11 +322,7 @@ class WorldExplorerHorizontal extends WorldExplorer {
         });
 
         // Initialize from URL hash
-        const hash = window.location.hash.slice(1);
-        const sectionIndex = this.horizontalNavigator.sections.indexOf(hash);
-        if (sectionIndex !== -1) {
-            this.horizontalNavigator.goToSection(sectionIndex);
-        }
+        this.horizontalNavigator.initializeFromHash();
 
         // Add section indicators
         this.createSectionIndicators();
@@ -281,10 +379,10 @@ class WorldExplorerHorizontal extends WorldExplorer {
         });
 
         // Update indicators when section changes
-        const originalGoToSection = this.horizontalNavigator.goToSection.bind(this.horizontalNavigator);
-        this.horizontalNavigator.goToSection = (sectionIndex) => {
-            originalGoToSection(sectionIndex);
-            this.updateSectionIndicators(sectionIndex);
+        const originalUpdateActiveNavLink = this.horizontalNavigator.updateActiveNavLink.bind(this.horizontalNavigator);
+        this.horizontalNavigator.updateActiveNavLink = () => {
+            originalUpdateActiveNavLink();
+            this.updateSectionIndicators(this.horizontalNavigator.currentSection);
         };
     }
 
@@ -313,5 +411,14 @@ class WorldExplorerHorizontal extends WorldExplorer {
 
 // Initialize the horizontal scrolling experience
 document.addEventListener('DOMContentLoaded', () => {
-    new WorldExplorerHorizontal();
+    // Add a small delay to ensure all elements are loaded
+    setTimeout(() => {
+        const storyNavigator = new HoChiMinhStoryNavigator();
+        console.log('Ho Chi Minh Story Navigator initialized with native horizontal scrolling');
+        
+        // Initialize from URL or go to first section
+        if (!window.location.hash) {
+            storyNavigator.horizontalNavigator.updateURL();
+        }
+    }, 100);
 });

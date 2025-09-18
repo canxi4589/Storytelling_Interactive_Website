@@ -9,6 +9,8 @@
     <title>Tư tưởng Hồ Chí Minh về Chủ nghĩa Xã hội - Interactive Story</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -58,92 +60,34 @@
         
         <!-- Scene 1: Preload - Nguyen Tat Thanh under starry sky -->
         <section id="scene1" class="story-scene scene-1" role="banner">
-            <div class="scene-background starry-sky">
-                <div class="stars" id="stars"></div>
-                <div class="shooting-star"></div>
-            </div>
-            <div class="scene-content">
-                <div class="character ho-chi-minh" id="hoChiMinh">
-                    <div class="character-silhouette"></div>
+            <div class="sky">
+                <div class="mountains">
+                    <div class="mountain-1"></div>
+                    <div class="mountain-2"></div>
+                    <div class="land-1"></div>
+                    <div class="land-2"></div>
+                    <div class="land-3"></div>
                 </div>
-                <div class="story-text fade-in-up">
-                    <h1 class="story-title">
-                        <span class="title-line">Tư tưởng</span>
-                        <span class="title-line">Hồ Chí Minh</span>
-                        <span class="title-line">về Chủ nghĩa Xã hội</span>
-                    </h1>
-                    <p class="story-subtitle">
-                        Hành trình tìm đường cứu nước và xây dựng chủ nghĩa xã hội ở Việt Nam
-                    </p>
-                </div>
-                <div class="scroll-indicator" aria-label="Scroll to continue">
-                    <div class="scroll-text">Cuộn để bắt đầu</div>
-                <div class="scroll-arrow"></div>
+                <div class="mountains-base"></div>
+                <div class="light-base"></div>
+                <canvas id="stars"></canvas>
             </div>
-        </div>
     </section>
 
         <!-- Scene 2: Social conditions of Vietnam in 1900s -->
         <section id="scene2" class="story-scene scene-2">
-            <div class="scene-background vietnam-1900s">
-                <div class="sky-gradient"></div>
-                <div class="mountains"></div>
-                <div class="rice-fields"></div>
-                <div class="factory-smoke"></div>
-                <div class="rain-drops"></div>
+            <div class="sky">
+                <div class="mountains">
+                    <div class="mountain-1"></div>
+                    <div class="mountain-2"></div>
+                    <div class="land-1"></div>
+                    <div class="land-2"></div>
+                    <div class="land-3"></div>
+                </div>
+                <div class="mountains-base"></div>
+                <div class="light-base"></div>
+                <canvas id="stars"></canvas>
             </div>
-            <div class="scene-content">
-                <h2 class="scene-title fade-in-title">Việt Nam những năm 1900</h2>
-                <div class="character-groups">
-                    <div class="character-group farmers" tabindex="0" role="button" aria-label="Hover to see farmers' hardships" data-sound="wind">
-                        <div class="group-icon">👨‍🌾</div>
-                        <div class="group-emotion sad"></div>
-                        <div class="hover-card enhanced-card">
-                            <div class="card-content">
-                                <h4>Nông dân</h4>
-                                <p>"Ruộng đồng khô cạn, không còn để ăn..."</p>
-                                <div class="card-emotion">😢</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="character-group workers" tabindex="0" role="button" aria-label="Hover to see workers' struggles" data-sound="factory">
-                        <div class="group-icon">👷‍♂️</div>
-                        <div class="group-emotion tired"></div>
-                        <div class="hover-card enhanced-card">
-                            <div class="card-content">
-                                <h4>Công nhân</h4>
-                                <p>"Làm mười mấy tiếng mà không đủ sống..."</p>
-                                <div class="card-emotion">😰</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="character-group children" tabindex="0" role="button" aria-label="Hover to see children's dreams" data-sound="children">
-                        <div class="group-icon">👶</div>
-                        <div class="group-emotion hopeful"></div>
-                        <div class="hover-card enhanced-card">
-                            <div class="card-content">
-                                <h4>Trẻ em</h4>
-                                <p>"Con muốn đi học..."</p>
-                                <div class="card-emotion">🥺</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="scene-description">
-                    <p>Đất nước Việt Nam những năm đầu thế kỷ 20 chìm trong đói nghèo và nô lệ thực dân</p>
-                </div>
-                <div class="character ho-chi-minh young walking" id="youngHoChiMinh">
-                    <div class="character-silhouette"></div>
-                    <div class="walking-path"></div>
-                </div>
-            </div>
-            <!-- Sound effects for atmosphere -->
-            <audio class="scene-audio wind-sound" loop preload="auto">
-                <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+LyvmIaCEOYze/GdiMFFnfh6r5xLwUVYL3j575zLgUSa8PrynpNChpMm9/tyGoifECYzU" type="audio/wav">
-            </audio>
-            <audio class="scene-audio children-sound" loop preload="auto">
-                <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+LyvmIaCEOYze/GdiMFFnfh6r5xLwUVYL3j575zLgUSa8PrynpNChpMm9/tyGoifECYzU" type="audio/wav">
-            </audio>
         </section>
 
         <!-- Scene 3: Decision to leave -->

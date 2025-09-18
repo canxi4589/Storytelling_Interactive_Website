@@ -541,3 +541,96 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 100);
 });
+(function() {
+    var canvas = document.getElementById("stars");
+    var ctx = canvas.getContext("2d");
+    var nightsky = ["#280F36", "#632B6C", "#BE6590", "#FFC1A0", "#FE9C7F"];
+    var stars = [];
+
+    // Set canvas size
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    // Star object
+    function Star(x, y, size, color, duration) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.color = color;
+        this.duration = duration;
+        this.opacity = 1;
+        this.phase = Math.random() * Math.PI * 2; // Random animation start
+    }
+
+    Star.prototype.draw = function() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        ctx.fill();
+    };
+
+    Star.prototype.update = function(time) {
+        // Simulate blinking with sine wave
+        this.opacity = 0.5 + 0.5 * Math.sin(time / (this.duration * 1000) * Math.PI * 2 + this.phase);
+    };
+
+    // Generate stars
+    function generateStars() {
+        stars = [];
+        // Main stars
+        for (var i = 0; i < 100; i++) {
+            stars.push(new Star(
+                Math.random() * canvas.width,
+                Math.random() * canvas.height * 0.7, // Focus on upper 70%
+                Math.random() * 1 + 0.5, // Size 0.5-1.5px
+                "white",
+                Math.random() * 3 + 2 // Duration 2-5s
+            ));
+        }
+        // Larger stars with color and glow
+        for (var i = 0; i < 50; i++) {
+            stars.push(new Star(
+                Math.random() * canvas.width,
+                Math.random() * canvas.height,
+                Math.random() * 1 + 1.5, // Size 1.5-2.5px
+                nightsky[Math.floor(Math.random() * nightsky.length)],
+                Math.random() * 2 + 5 // Duration 5-7s
+            ));
+        }
+        // Cross-band stars (rotated effect)
+        for (var i = 0; i < 50; i++) {
+            var x = Math.random() * canvas.width * 1.2; // Wider area
+            var y = canvas.height * 0.1 + Math.random() * canvas.height * 0.2; // 10-30% height
+            // Apply rotation transform (20deg)
+            var angle = 20 * Math.PI / 180;
+            var rotatedX = x * Math.cos(angle) - y * Math.sin(angle);
+            var rotatedY = x * Math.sin(angle) + y * Math.cos(angle);
+            stars.push(new Star(
+                rotatedX,
+                rotatedY,
+                Math.random() * 1 + 1, // Size 1-2px
+                nightsky[Math.floor(Math.random() * nightsky.length)],
+                Math.random() * 6 + 6 // Duration 6-12s
+            ));
+        }
+    }
+
+    // Animation loop
+    function animate(time) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(star => {
+            star.update(time);
+            star.draw();
+        });
+        requestAnimationFrame(animate);
+    }
+
+    // Initialize
+    generateStars();
+    requestAnimationFrame(animate);
+})();
